@@ -53,13 +53,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     public DobbeltLenketListe(T[] a) {
         Objects.requireNonNull(a);
-
-
         hode = hale = new Node<T>(null);
         Node current = hode;
         for (T verdi : a){
-            hale = hale.neste = new Node<T>(verdi, hale, null);
+            if (verdi != null){
+                hale = hale.neste = new Node<T>(verdi, hale, null);
+                antall++;
             }
+        }
         hode = null;
     }
 
