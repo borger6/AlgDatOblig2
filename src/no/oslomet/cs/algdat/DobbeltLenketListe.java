@@ -52,12 +52,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public DobbeltLenketListe(T[] a) {
-        if (tom()){
-            throw new NullPointerException();
+        Objects.requireNonNull(a);
+
+
+        hode = hale = new Node<T>(null);
+        Node current = hode;
         for (T verdi : a){
-            hale = null;
+            hale = hale.neste = new Node<T>(verdi, hale, null);
             }
-        }
+        hode = null;
     }
 
     public Liste<T> subliste(int fra, int til){
