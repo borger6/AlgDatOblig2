@@ -61,7 +61,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 antall++;
             }
         }
-        hode = null;
+        if (antall == 0){
+            hode = hale = null;
+        }
     }
 
     public Liste<T> subliste(int fra, int til){
@@ -125,7 +127,17 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public String toString() {
-        throw new NotImplementedException();
+        StringBuilder str = new StringBuilder();
+        str.append("[");
+        Node current = hode;
+        current = current.neste;
+        while (current != null){
+            str.append(current.verdi + ", ");
+            current = current.neste;
+        }
+        str.append("]");
+        return str.toString();
+        //throw new NotImplementedException();
     }
 
     public String omvendtString() {
