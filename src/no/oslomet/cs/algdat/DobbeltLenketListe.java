@@ -54,7 +54,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public DobbeltLenketListe(T[] a) {
         Objects.requireNonNull(a);
         hode = hale = new Node<T>(null);
-        Node current = hode;
         for (T verdi : a){
             if (verdi != null){
                 hale = hale.neste = new Node<T>(verdi, hale, null);
@@ -82,7 +81,17 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean leggInn(T verdi) {
-        throw new NotImplementedException();
+        Objects.requireNonNull(verdi);
+        if (tom()){
+            hode = hale = new Node<T>(verdi, null, null);
+        }
+        else {
+            hale = hale.neste = new Node<T>(verdi, hale, null);
+        }
+
+        antall++;
+        endringer++;
+            return true;
     }
 
     @Override
@@ -129,11 +138,21 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public String toString() {
         StringBuilder str = new StringBuilder();
         str.append("[");
-        Node current = hode;
-        current = current.neste;
+        Node<T> current = hode;
         while (current != null){
-            str.append(current.verdi + ", ");
-            current = current.neste;
+            if (current.verdi == null){
+                current = current.neste;
+            }
+            else {
+                str.append(current.verdi);
+                if (antall >= 2){
+                    if (current.neste == hale.neste){
+                        break;
+                    }
+                    str.append(", ");
+                }
+                current = current.neste;
+            }
         }
         str.append("]");
         return str.toString();
@@ -141,7 +160,26 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public String omvendtString() {
-        throw new NotImplementedException();
+        StringBuilder str = new StringBuilder();
+        str.append("[");
+        Node<T> current = hale;
+        while (current != null) {
+            if (current.verdi == null) {
+                current = current.forrige;
+            } else {
+                str.append(current.verdi);
+                if (antall >= 2) {
+                    if (current.forrige == hode.forrige){
+                        break;
+                    }
+                    str.append(", ");
+                }
+                    current = current.forrige;
+            }
+        }
+        str.append("]");
+        return str.toString();
+
     }
 
     @Override
