@@ -76,7 +76,28 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public Liste<T> subliste(int fra, int til){
-        throw new NotImplementedException();
+        Liste<T> subliste = new DobbeltLenketListe<>();
+        fratilKontroll(antall,fra,til);
+        for(int i = fra; i<til; i++) {
+            if(hent(fra) != null){
+                Node<T> q = finnNode(i);
+                subliste.leggInn(q.verdi);
+            }
+        }
+
+        return subliste;
+    }
+    private static void fratilKontroll(int antall, int fra, int til)
+    {
+        if (fra < 0)
+            throw new IndexOutOfBoundsException("fra(" + fra + ") er negativ!");
+
+        if (til > antall) throw new ArrayIndexOutOfBoundsException
+                ("til(" + til + ") er større enn antall(" + antall + ")");
+
+        if (fra > til)
+            throw new IllegalArgumentException("fra(" + fra + ") er større enn" +
+                    " til(" + til + ") Sett 'fra ' mindre enn 'til'");
     }
 
     @Override
@@ -101,7 +122,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         antall++;
         endringer++;
-            return true;
+        return true;
     }
 
     @Override
@@ -123,8 +144,29 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T hent(int indeks) {
-        throw new NotImplementedException();
+        indeksKontroll(indeks,false);
+        return finnNode(indeks).verdi;
     }
+    public Node<T> finnNode(int indeks){
+        Node<T> p = hode;
+        Node<T> r = hale;
+        Node<T> node;
+
+        if(indeks<antall/2){
+            for(int i = 0; i<indeks; i++){
+                p = p.neste;
+            }
+            node = p;
+        }
+        else{
+            for (int i = antall-1; i > indeks; i--){
+                r = r.forrige;
+            }
+            node = r;
+        }
+        return node;
+    }
+
 
     @Override
     public int indeksTil(T verdi) {
@@ -148,7 +190,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T oppdater(int indeks, T nyverdi) {
-        throw new NotImplementedException();
+        indeksKontroll(indeks, false);
+        Objects.requireNonNull(nyverdi, "Ikke lov til å legge inn null-verdier");
+        Node<T> p = finnNode(indeks);
+        T gammelVerdi = p.verdi;
+        p.verdi = nyverdi;
+        endringer++;
+        return gammelVerdi;
     }
 
     @Override
