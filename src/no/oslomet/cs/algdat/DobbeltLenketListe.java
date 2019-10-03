@@ -52,11 +52,21 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public DobbeltLenketListe(T[] a) {
-        Objects.requireNonNull(a);
+        Objects.requireNonNull(a, "ingen verdier i tabellen");
         hode = hale = new Node<T>(null);
-        for (T verdi : a){
-            if (verdi != null){
-                hale = hale.neste = new Node<T>(verdi, hale, null);
+        //for (T verdi : a){
+
+        int i = 0;
+        for(; i<a.length; i++){
+            if(a[i] != null){
+                hale = hode = new Node(a[i]);
+                antall++;
+                break;
+            }
+        }
+        for(int j = i+1;j<a.length;j++){
+            if (a[j] != null){
+                hale = hale.neste = new Node<T>(a[j], hale, null);
                 antall++;
             }
         }
@@ -101,7 +111,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean inneholder(T verdi) {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
+        int inneholder = indeksTil(verdi);
+        if(inneholder == -1){
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 
     @Override
@@ -111,7 +128,22 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public int indeksTil(T verdi) {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
+        //skal gaa gjennom hele linkedlisten med en while-lokke og hente stoppe der current sin verdi er samme som input verdi
+        int indeks = 0; //teller hvor mange ganger while-lokken kjorer
+        if(hode == null){
+            return -1;
+        }
+        Node current = hode;
+        while(!current.verdi.equals(verdi)){
+            if(current.neste == null){
+                indeks = -1;
+                break;
+            }
+            current = current.neste;
+            indeks++;
+        }
+        return indeks;
     }
 
     @Override
