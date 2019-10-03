@@ -2,13 +2,14 @@
 
 Denne oppgaven er en innlevering i Algoritmer og Datastrukturer. 
 Oppgaven er levert av følgende studenter:
-* Navn Navnesen, S981737, s981737@oslomet.no
-* ...
+* Christian Dyrli, S333738, s333738@oslomet.no
+* Olav Markus Bjørndal, S331354, s331354@oslomet.no
+* Marcus Borger, s321371, s321371@oslomet.no
 
 # Arbeidsfordeling
 
 I oppgaven har vi hatt følgende arbeidsfordeling:
-* Per har hatt hovedansvar for oppgave 1, 3, og 5. 
+* Marcus har hatt hovedansvar for oppgave 0, 1, 2 og 5
 * Else har hatt hovedansvar for oppgave 2, 4, og 6. 
 * Fatima har hatt hovedansvar for oppgave 7 og 8. 
 * Vi har i fellesskap løst oppgave 10. 
