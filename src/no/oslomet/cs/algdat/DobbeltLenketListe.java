@@ -130,9 +130,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         Objects.requireNonNull(indeks);
         Objects.requireNonNull(verdi);
         Node q = new Node<T>(verdi);
-        Node r = new Node<T>(null);
-        Node p = new Node<T>(null);
-        Node current = new Node<T>(null);
+        Node r;
+        Node p;
+        Node current;
         int teller = 0;
         indeksKontroll(indeks, false);
         if (tom()) {
