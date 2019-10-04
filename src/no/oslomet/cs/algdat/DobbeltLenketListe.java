@@ -92,7 +92,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         if (fra < 0)
             throw new IndexOutOfBoundsException("fra(" + fra + ") er negativ!");
 
-        if (til > antall) throw new ArrayIndexOutOfBoundsException
+        if (til > antall) throw new IndexOutOfBoundsException
                 ("til(" + til + ") er større enn antall(" + antall + ")");
 
         if (fra > til)
@@ -127,8 +127,41 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public void leggInn(int indeks, T verdi) {
-        throw new NotImplementedException();
+        Objects.requireNonNull(indeks);
+        Objects.requireNonNull(verdi);
+        Node q = new Node<T>(verdi);
+        Node r = new Node<T>(null);
+        Node p = new Node<T>(null);
+        Node current = new Node<T>(null);
+        int teller = 0;
+        indeksKontroll(indeks, false);
+        if (tom()) {
+            hode = hale = q;
+        }
+        else if (indeks == 0){
+            q.neste = hode;
+            hode = q;
+        }
+        else if (indeks == antall){
+            q.forrige = hale;
+            hale = q;
+        }
+        else {
+            current = hode;
+            while(teller != indeks){
+                current = current.neste;
+                teller++;
+            }
+            p = current.forrige;
+            r = current;
+
+            p.neste = q;
+            r.forrige = q;
+            q.forrige = p;
+            q.neste = r;
+        }
     }
+
 
     @Override
     public boolean inneholder(T verdi) {

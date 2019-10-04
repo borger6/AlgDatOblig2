@@ -30,6 +30,9 @@ public class Main {
         DobbeltLenketListe<String> indeksTilTest = new DobbeltLenketListe<>(Pokemon);
         System.out.println(indeksTilTest.toString());
         System.out.println(indeksTilTest.indeksTil("Arcanine"));
+
+        indeksTilTest.leggInn(5, "Bisharp");
+        System.out.println(indeksTilTest.toString());
     }
 
 
