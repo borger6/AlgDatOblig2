@@ -129,22 +129,27 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public void leggInn(int indeks, T verdi) {
         Objects.requireNonNull(indeks);
         Objects.requireNonNull(verdi);
-        Node q = new Node<T>(verdi);
+        Node q = new Node<>(verdi);
         Node r;
         Node p;
         Node current;
         int teller = 0;
-        indeksKontroll(indeks, false);
+        indeksKontroll(indeks, true);
         if (tom()) {
             hode = hale = q;
+            antall++;
         }
         else if (indeks == 0){
             q.neste = hode;
+            hode.forrige = q;
             hode = q;
+            antall++;
         }
         else if (indeks == antall){
             q.forrige = hale;
+            hale.neste = q;
             hale = q;
+            antall++;
         }
         else {
             current = hode;
@@ -159,6 +164,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             r.forrige = q;
             q.forrige = p;
             q.neste = r;
+
+            antall++;
         }
     }
 

@@ -27,11 +27,14 @@ public class Main {
 //        }
 
         String[] Pokemon = {"Pikachu" , "Bulbasaur" , "Arcanine" , "Lucario", "Squirtle" };
+        //String[] Pokemon = {};
         DobbeltLenketListe<String> indeksTilTest = new DobbeltLenketListe<>(Pokemon);
         System.out.println(indeksTilTest.toString());
         System.out.println(indeksTilTest.indeksTil("Arcanine"));
 
-        indeksTilTest.leggInn(5, "Bisharp");
+
+        System.out.println(indeksTilTest.antall());
+        indeksTilTest.leggInn(4, "Bisharp");
         System.out.println(indeksTilTest.toString());
     }
 
