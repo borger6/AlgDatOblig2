@@ -36,6 +36,8 @@ public class Main {
         System.out.println(indeksTilTest.antall());
         indeksTilTest.leggInn(4, "Bisharp");
         System.out.println(indeksTilTest.toString());
+        indeksTilTest.fjern("Squirtle");
+        System.out.println(indeksTilTest.toString());
     }
 
 

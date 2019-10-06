@@ -241,12 +241,95 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean fjern(T verdi) {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
+        if(verdi == null){
+            return false;
+        }
+        if (hode.equals(null)){
+            return false;
+        }
+        Node p;
+        Node r;
+        Node current = hode;
+        int indeks = 0;
+        while (!current.verdi.equals(verdi)) {
+            if (indeks < antall - 1) {
+                current = current.neste;
+            }
+            indeks++;
+            if (indeks == antall-1) {
+                break;
+            }
+        }
+        if (!current.verdi.equals(verdi)) {
+            return false;
+        }
+        if(antall == 1){
+            hode = hale = null;
+            antall--;
+        }
+        else if (indeks == 0){
+            hode = hode.neste;
+            hode.forrige = null;
+            antall--;
+        }
+        else if(current.equals(hale)){
+            hale = hale.forrige;
+            hale.neste = null;
+            antall--;
+        }
+        else{
+            p = current.forrige;
+            r = current.neste;
+
+            p.neste = r;
+            r.forrige = p;
+            antall--;
+        }
+        return true;
     }
+
 
     @Override
     public T fjern(int indeks) {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
+        indeksKontroll(indeks, false);
+        T returnerVerdi;
+        if(antall == 1 && indeks == 0){
+            returnerVerdi = hode.verdi;
+            hode = hale = null;
+            antall--;
+        }
+        else if(indeks == 0){
+            returnerVerdi = hode.verdi;
+            hode = hode.neste;
+            hode.forrige = null;
+            antall--;
+        }
+        else if(indeks == antall-1){
+            returnerVerdi = hale.verdi;
+            hale = hale.forrige;
+            hale.neste = null;
+            antall--;
+        }
+        else {
+            Node p;
+            Node r;
+            Node<T> current = hode;
+            int teller = 0;
+            while (teller != indeks) {
+                current = current.neste;
+                teller++;
+            }
+            returnerVerdi = current.verdi;
+            p = current.forrige;
+            r = current.neste;
+
+            p.neste = r;
+            r.forrige = p;
+            antall--;
+        }
+        return returnerVerdi;
     }
 
     @Override
