@@ -303,12 +303,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         else if(indeks == 0){
             returnerVerdi = hode.verdi;
             hode = hode.neste;
+            hode.forrige.neste = null;
             hode.forrige = null;
             antall--;
         }
         else if(indeks == antall-1){
             returnerVerdi = hale.verdi;
             hale = hale.forrige;
+            hale.neste.forrige = null;
             hale.neste = null;
             antall--;
         }
@@ -333,9 +335,29 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     @Override
-    public void nullstill() {
-        throw new NotImplementedException();
+    public void nullstill() {// vi finner ingen konsekvent raskeste av de to variantene
+        Node p;
+        Node current = hode;
+        while(!current.equals(hale)){
+            current.verdi = null;
+            current = current.neste;
+            p = current.forrige;
+            p.neste = null;
+            current.forrige = null;
+            endringer++;
+        }
+        hode = hale = null;
+        antall = 0;
+
+        /*
+        int n = antall;
+        for(int i = 0; i < n; i++){
+            fjern(0);
+            endringer++;
+        }
+        */
     }
+
 
     @Override
     public String toString() {
