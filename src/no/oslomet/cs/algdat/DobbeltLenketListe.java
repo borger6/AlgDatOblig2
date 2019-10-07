@@ -137,18 +137,21 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         indeksKontroll(indeks, true);
         if (tom()) {
             hode = hale = q;
+            endringer++;
             antall++;
         }
         else if (indeks == 0){
             q.neste = hode;
             hode.forrige = q;
             hode = q;
+            endringer++;
             antall++;
         }
         else if (indeks == antall){
             q.forrige = hale;
             hale.neste = q;
             hale = q;
+            endringer++;
             antall++;
         }
         else {
@@ -165,6 +168,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             q.forrige = p;
             q.neste = r;
 
+            endringer++;
             antall++;
         }
     }
@@ -266,16 +270,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
         if(antall == 1){
             hode = hale = null;
+            endringer++;
             antall--;
         }
         else if (indeks == 0){
             hode = hode.neste;
             hode.forrige = null;
+            endringer++;
             antall--;
         }
         else if(current.equals(hale)){
             hale = hale.forrige;
             hale.neste = null;
+            endringer++;
             antall--;
         }
         else{
@@ -284,6 +291,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
             p.neste = r;
             r.forrige = p;
+            endringer++;
             antall--;
         }
         return true;
@@ -298,6 +306,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         if(antall == 1 && indeks == 0){
             returnerVerdi = hode.verdi;
             hode = hale = null;
+            endringer++;
             antall--;
         }
         else if(indeks == 0){
@@ -305,6 +314,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             hode = hode.neste;
             hode.forrige.neste = null;
             hode.forrige = null;
+            endringer++;
             antall--;
         }
         else if(indeks == antall-1){
@@ -312,6 +322,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             hale = hale.forrige;
             hale.neste.forrige = null;
             hale.neste = null;
+            endringer++;
             antall--;
         }
         else {
@@ -329,6 +340,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
             p.neste = r;
             r.forrige = p;
+            endringer++;
             antall--;
         }
         return returnerVerdi;
@@ -409,11 +421,16 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public Iterator<T> iterator() {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
+        Iterator<T> enIterator = new DobbeltLenketListeIterator();
+        return enIterator;
     }
 
     public Iterator<T> iterator(int indeks) {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
+        indeksKontroll(indeks, false);
+        return new DobbeltLenketListeIterator(indeks);
+
     }
 
     private class DobbeltLenketListeIterator implements Iterator<T>
@@ -423,21 +440,41 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         private int iteratorendringer;
 
         private DobbeltLenketListeIterator(){
-            throw new NotImplementedException();
+            denne = hode;     // p starter på den første i listen
+            this.fjernOK = false;  // blir sann når next() kalles
+            iteratorendringer = endringer;  // teller endringer
         }
 
         private DobbeltLenketListeIterator(int indeks){
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            denne = hode;
+            int teller = 0;
+            while(teller != indeks){
+                denne = denne.neste;
+                teller++;
+            }
+            this.fjernOK = false;  // blir sann når next() kalles
+            iteratorendringer = endringer;  // teller endringer
         }
 
         @Override
         public boolean hasNext(){
-            throw new NotImplementedException();
+            return denne != null;
         }
 
         @Override
         public T next(){
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            if (iteratorendringer != endringer){
+                throw new ConcurrentModificationException();
+            }
+            if (hasNext() != true){
+                throw new NoSuchElementException();
+            }
+            this.fjernOK = true;
+            T verdi = denne.verdi;
+            denne = denne.neste;
+            return verdi;
         }
 
         @Override

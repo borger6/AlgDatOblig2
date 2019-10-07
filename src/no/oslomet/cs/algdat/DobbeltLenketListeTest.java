@@ -1132,7 +1132,6 @@ class DobbeltLenketListeTest {
         i = liste.iterator(3);
         for (; i.hasNext(); ) {
             if (i.next() != m) {
-                antallFeil++;
                 System.out.println("Oppgave 8w: Feil i metoden next()!");
             }
             m++;

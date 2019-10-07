@@ -38,6 +38,13 @@ public class Main {
         System.out.println(indeksTilTest.toString());
         indeksTilTest.fjern("Squirtle");
         System.out.println(indeksTilTest.toString());
+
+        String[] navn = {"Lars","Anders","Bodil","Kari","Per","Berit"};
+        Liste<String> liste = new DobbeltLenketListe<>(navn);
+
+        liste.forEach(s -> System.out.print(s + " "));
+        System.out.println();
+        for(String s : liste) System.out.print(s + " ");
     }
 
 
