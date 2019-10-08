@@ -2,7 +2,12 @@ package no.oslomet.cs.algdat;
 
 
 ////////////////// class DobbeltLenketListe //////////////////////////////
-
+/**
+ *
+ * Olav Markus Bjørndal, S331354, s331354@oslomet.no
+ * Marcus Borger, s321371, s321371@oslomet.no
+ * Christian Dyrli, S333738, s333738@
+ */
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
