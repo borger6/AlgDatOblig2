@@ -516,8 +516,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
         T a;
         T b;
-        T temp;
-
         int n = liste.antall();
 
         int teller = 1;
@@ -526,14 +524,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             for (int i = 0; i < n - 1; i++) {
                 a = liste.hent(i);
                 b = liste.hent(i + 1);
-                Comparable første = (Comparable) a;
-                Comparable andre = (Comparable) b;
-
-                if (første.compareTo(andre) > 0) {
+                if(c.compare(a, b) > 0){
                     teller++;
-                    temp = liste.hent(i);
                     liste.oppdater(i, b);
-                    liste.oppdater(i + 1, temp);
+                    liste.oppdater(i + 1, a);
                 }
             }
         }
