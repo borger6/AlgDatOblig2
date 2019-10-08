@@ -2,6 +2,7 @@ package no.oslomet.cs.algdat;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class Main {
@@ -47,14 +48,18 @@ public class Main {
         for(String s : liste) System.out.print(s + " ");*/
 
 
-        DobbeltLenketListe<String> liste =
+       /* DobbeltLenketListe<String> liste =
                 new DobbeltLenketListe<>(new String[]
                         {"Birger","Lars","Anders","Bodil","Kari","Per","Berit"});
         //liste.fjernHvis(navn -> navn.charAt(0) == 'B');   // fjerner navn som starter med B
         //liste.fjernHvis(navn -> navn.contains("e"));      // fjerner navn som inneholder 'e'
         liste.fjernHvis(navn -> navn.length() != 5);        // fjerner navn som ikke er 5 karakterer langt
         System.out.println(liste + " " + liste.omvendtString());
-
+*/
+        String[] navn = {"Lars","Anders","Bodil","Kari","Per","Berit"};
+        Liste<String> liste1 = new DobbeltLenketListe<>(navn);
+        DobbeltLenketListe.sorter(liste1, Comparator.naturalOrder());
+        System.out.println(liste1); // [Anders, Berit, Bodil, Kari, Lars, Per]
 
     }
 

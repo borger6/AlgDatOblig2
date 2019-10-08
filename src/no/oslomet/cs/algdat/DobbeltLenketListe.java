@@ -519,19 +519,24 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         T temp;
 
         int n = liste.antall();
-        for(int i = 0; i<n-1; i++){
-           a= liste.hent(i);
-           b = liste.hent(i+1);
-           Comparable første = (Comparable)a;
-           Comparable andre = (Comparable)b;
 
-           if(første.compareTo(andre) < 0){
-               temp = liste.hent(i);
-               liste.oppdater(i,b);
-               liste.oppdater(i+1,temp);
-           }
+        int teller = 1;
+        while (teller !=0) {
+            teller = 0;
+            for (int i = 0; i < n - 1; i++) {
+                a = liste.hent(i);
+                b = liste.hent(i + 1);
+                Comparable første = (Comparable) a;
+                Comparable andre = (Comparable) b;
+
+                if (første.compareTo(andre) > 0) {
+                    teller++;
+                    temp = liste.hent(i);
+                    liste.oppdater(i, b);
+                    liste.oppdater(i + 1, temp);
+                }
+            }
         }
-
     }
 
 } // class DobbeltLenketListe
