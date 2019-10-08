@@ -191,6 +191,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         indeksKontroll(indeks,false);
         return finnNode(indeks).verdi;
     }
+
     public Node<T> finnNode(int indeks){
         Node<T> p = hode;
         Node<T> r = hale;
@@ -479,13 +480,58 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         @Override
         public void remove(){
-            throw new NotImplementedException();
+            if(fjernOK == false){
+                throw new IllegalStateException("Ikke tillatt å kalle denne metoden");
+            }
+            if(endringer != iteratorendringer){
+                throw new ConcurrentModificationException("Antall endringer : "+endringer+ ", er ikke det " +
+                        "samme som : "+iteratorendringer);
+            }
+
+            fjernOK = false;
+            if(antall==1){
+                nullstill();
+            }
+            else if(denne == null){
+                hale = hale.forrige;
+                hale.neste = null;
+                antall--;
+            }
+            else if(denne.forrige == hode){
+                hode = denne;
+                denne.forrige = null;
+                antall--;
+            }
+            else{
+                denne.forrige = denne.forrige.forrige;
+                denne.forrige.neste = denne;
+                antall--;
+            }
+            endringer++;
+            iteratorendringer++;
         }
 
     } // class DobbeltLenketListeIterator
 
     public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
-        throw new NotImplementedException();
+        T a;
+        T b;
+        T temp;
+
+        int n = liste.antall();
+        for(int i = 0; i<n-1; i++){
+           a= liste.hent(i);
+           b = liste.hent(i+1);
+           Comparable første = (Comparable)a;
+           Comparable andre = (Comparable)b;
+
+           if(første.compareTo(andre) < 0){
+               temp = liste.hent(i);
+               liste.oppdater(i,b);
+               liste.oppdater(i+1,temp);
+           }
+        }
+
     }
 
 } // class DobbeltLenketListe

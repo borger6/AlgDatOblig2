@@ -26,7 +26,7 @@ public class Main {
 //            System. out .println(liste1.toString() + " " + liste1.omvendtString());
 //        }
 
-        String[] Pokemon = {"Pikachu" , "Bulbasaur" , "Arcanine" , "Lucario", "Squirtle" };
+       /* String[] Pokemon = {"Pikachu" , "Bulbasaur" , "Arcanine" , "Lucario", "Squirtle" };
         //String[] Pokemon = {};
         DobbeltLenketListe<String> indeksTilTest = new DobbeltLenketListe<>(Pokemon);
         System.out.println(indeksTilTest.toString());
@@ -44,12 +44,24 @@ public class Main {
 
         liste.forEach(s -> System.out.print(s + " "));
         System.out.println();
-        for(String s : liste) System.out.print(s + " ");
+        for(String s : liste) System.out.print(s + " ");*/
+
+
+        DobbeltLenketListe<String> liste =
+                new DobbeltLenketListe<>(new String[]
+                        {"Birger","Lars","Anders","Bodil","Kari","Per","Berit"});
+        //liste.fjernHvis(navn -> navn.charAt(0) == 'B');   // fjerner navn som starter med B
+        //liste.fjernHvis(navn -> navn.contains("e"));      // fjerner navn som inneholder 'e'
+        liste.fjernHvis(navn -> navn.length() != 5);        // fjerner navn som ikke er 5 karakterer langt
+        System.out.println(liste + " " + liste.omvendtString());
+
+
     }
 
 
     @Test
-    void oppgave2(){
+    void oppgave2()
+    {
         String[] s = {"Ole" , null , "Per" , "Kari", null };
 
         Liste<String> liste = new DobbeltLenketListe<>(s);
